@@ -11,12 +11,7 @@ export default class Grid {
 
   adjacent() {
     let grids = CheckerBoard.grids
-    return [
-      find(grids, { x: this.x, y: this.y - 1 }),
-      find(grids, { x: this.x, y: this.y + 1 }),
-      find(grids, { y: this.y, x: this.x + 1 }),
-      find(grids, { y: this.y, x: this.x - 1 })
-    ].filter(Boolean)
+    return [find(grids, { x: this.x, y: this.y - 1 }), find(grids, { x: this.x, y: this.y + 1 }), find(grids, { y: this.y, x: this.x + 1 }), find(grids, { y: this.y, x: this.x - 1 })].filter(Boolean)
   }
 
   addCard(card) {

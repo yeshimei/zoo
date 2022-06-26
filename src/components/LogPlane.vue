@@ -23,23 +23,6 @@
       position: relative;
       margin-top: 80px;
     }
-
-    .arrow {
-      position: absolute;
-      left: 50%;
-      transform: translateX(-50%);
-      color: #aaa;
-      font-size: 35px;
-      margin-top: 10px;
-      animation: arrow 1s infinite alternate-reverse;
-    }
-
-    @keyframes arrow {
-      100% {
-        margin-top: 15px;
-      }
-    }
-
     .type {
       font-size: 45px;
     }
@@ -70,14 +53,21 @@
   <transition name="slideUp">
     <div class="log-plane" @click.self="$emit('back')" v-if="show">
       <div class="wrapper">
-        <div class="tabs" v-for="(value, key) in log" :key="key">
-          <div class="type">{{ replaceTypeText(key) }}</div>
-          <div class="log" v-for="(content, i) of value.reverse()" :key="i">
+        <div class="tabs">
+          <div class="type">教程</div>
+          <div class="log" v-for="(content, i) of log.course" :key="i">
             <div class="date">{{ content.date }}</div>
             <div class="content">
-              <div class="text" v-for="(text, j) of content.content" :key="j">
-                {{ j + 1 }}. {{ text }}
-              </div>
+              <div class="text" v-for="(text, j) of content.content" :key="j">{{ j + 1 }}. {{ text }}</div>
+            </div>
+          </div>
+        </div>
+        <div class="tabs">
+          <div class="type">更新日志</div>
+          <div class="log" v-for="(content, i) of log.update" :key="i">
+            <div class="date">{{ content.date }}</div>
+            <div class="content">
+              <div class="text" v-for="(text, j) of content.content" :key="j">{{ j + 1 }}. {{ text }}</div>
             </div>
           </div>
         </div>

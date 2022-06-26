@@ -62,6 +62,11 @@
     text-align: center;
     margin-top: 50px;
 
+    .luck-card {
+      font-size: 30px;
+      color: #888;
+    }
+
     .avatar {
       align-self: center;
       width: 30px;
@@ -202,6 +207,10 @@
       <div class="username">
         {{ currentPlayer.id === userData.id ? '我' : currentPlayer.username }}
       </div>
+      <p class="luck-card" v-if="luckCard.name">
+        - {{ luckCard.name }}
+        {{ luckCard.extraRound ? '(' + luckCard.extraRound + ')' : '' }}-
+      </p>
     </div>
 
     <div class="funcs" v-if="self.camp !== -1">
@@ -238,9 +247,9 @@
       </div>
     </transition>
 
-    <!-- <div class="log" @click="isLogPlane = true">- DEVELOPER LOG -</div>
+    <div class="log" @click="isLogPlane = true">- DEVELOPER LOG -</div>
 
-    <LogPlane :show="isLogPlane" @back="() => (isLogPlane = false)"> </LogPlane> -->
+    <LogPlane :show="isLogPlane" @back="() => (isLogPlane = false)"> </LogPlane>
   </div>
 
   <div class="wait-player" v-else>等待一名玩家加入游戏</div>
@@ -248,7 +257,7 @@
 
 <script>
 import { mapState } from 'vuex'
-// import LogPlane from '@/components/LogPlane.vue'
+import LogPlane from '@/components/LogPlane.vue'
 
 export default {
   name: 'HomeView',
@@ -268,7 +277,8 @@ export default {
       'currentPlayer',
       'userData',
       'giveUp',
-      'toCard'
+      'toCard',
+      'luckCard'
     ]),
 
     playerBarStyles() {
@@ -294,6 +304,7 @@ export default {
       this.$send('confirm give up', b)
     },
     action(grid) {
+      if (grid.card && grid.card.type === 'luck') this.isLuckCard = true
       if (grid.card.reverse || !grid.card.id) {
         if (this.selectedGrid) {
           if (this.selectedGrid.id === grid.id) {
@@ -352,7 +363,11 @@ export default {
   },
   created() {
     this.w = innerWidth / this.checkerBoard.col
-  }
-  // components: { LogPlane }
+    let a = new Audio()
+    a.src = '../assets/audio/点击.mp3'
+    a.load()
+    a.play()
+  },
+  components: { LogPlane }
 }
 </script>

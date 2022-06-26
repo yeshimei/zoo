@@ -18,6 +18,14 @@ function playerLeave(socketId) {
 
 function reverse(id) {
   let grid = CheckerBoard.getGrid(id)
+  if (grid.card && grid.card.type === 'luck') {
+    provide({
+      luckCard: {
+        name: grid.card.name,
+        extraRound: CheckerBoard.currentPlayer.extraRound
+      }
+    })
+  }
   if (grid && grid.card) grid.card.setReverse()
 }
 

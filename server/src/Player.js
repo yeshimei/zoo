@@ -10,5 +10,6 @@ export default class Player {
      */
     this.status = 'join'
     this.camp = 0
+    this.extraRound = 0
   }
 }

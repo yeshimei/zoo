@@ -1,5 +1,5 @@
 import Grid from '../server/src/Grid'
-import { getCards } from '../serve/src/Card'
+import { getCards } from '../server/src/Card'
 import CheckerBoard from '../server/src/CheckerBoard'
 
 export function go(data) {

@@ -1,6 +1,7 @@
 import { find, map, reject, shuffle, union, uniqueId } from 'lodash'
 import Grid from './Grid'
 import { getCards } from './Card'
+import { provide } from '.'
 
 class CheckerBoard {
   constructor() {
@@ -44,6 +45,15 @@ class CheckerBoard {
     this.currentPlayer = null
     this.round = 0
     this.status = 'start'
+    this.discardedCards = []
+    this.players.forEach(player => {
+      player.extraRound = 0
+    })
+
+    provide({
+      luckCard: {},
+      giveUp: {}
+    })
     this.create()
     this.next()
   }
@@ -51,10 +61,12 @@ class CheckerBoard {
   pause() {}
 
   next() {
-    if (this.status === 'start') {
+    if (this.currentPlayer && this.currentPlayer.extraRound > 0) {
+      this.currentPlayer.extraRound--
+    } else {
       this.currentPlayer = this.players[this.round % 2]
-      this.round++
     }
+    this.round++
   }
 
   computed() {

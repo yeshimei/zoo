@@ -1,12 +1,9 @@
 import { io } from 'socket.io-client'
 import store from './store/index'
 
-let url =
-  process.env.NODE_ENV === 'development'
-    ? 'http://localhost:3003'
-    : 'http://124.222.182.158:3003/'
+let url = process.env.NODE_ENV === 'development' ? 'http://localhost:3003' : 'http://124.222.182.158:3003/'
 
-url = 'http://124.222.182.158:3003/'
+// url = 'http://124.222.182.158:3003/'
 
 export let socket = io(url)
 
